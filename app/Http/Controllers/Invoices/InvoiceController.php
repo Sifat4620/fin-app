@@ -15,7 +15,7 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoices = Invoice::latest()->paginate(15);
-        return view('invoice.index', compact('invoices'));
+        return view('Invoice.index', compact('invoices'));
     }
 
     public function create()
@@ -24,7 +24,7 @@ class InvoiceController extends Controller
         $users = User::select('id', 'name')->orderBy('name')->get();
         $wallets = Wallet::select('id', 'holder_id', 'balance')->get();
 
-        return view('invoice.create', compact('transactions', 'users', 'wallets'));
+        return view('Invoice.create', compact('transactions', 'users', 'wallets'));
     }
 
     public function store(Request $request)
@@ -50,20 +50,20 @@ class InvoiceController extends Controller
 
         Invoice::create($request->all());
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
+        return redirect()->route('Invoices.index')->with('success', 'Invoice created successfully.');
     }
 
     public function show(string $id)
     {
         $invoice = Invoice::findOrFail($id);
-        return view('invoice.show', compact('invoice'));
+        return view('Invoice.show', compact('invoice'));
     }
 
     public function edit(string $id)
     {
         $invoice = Invoice::findOrFail($id);
         $transactions = Transaction::latest()->limit(50)->get();
-        return view('invoice.edit', compact('invoice', 'transactions'));
+        return view('Invoice.edit', compact('invoice', 'transactions'));
     }
 
     public function update(Request $request, string $id)
@@ -84,7 +84,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $invoice->update($request->all());
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
+        return redirect()->route('Invoices.index')->with('success', 'Invoice updated successfully.');
     }
 
     public function destroy(string $id)
@@ -92,12 +92,12 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully.');
+        return redirect()->route('Invoices.index')->with('success', 'Invoice deleted successfully.');
     }
 
     public function print(string $id)
     {
         $invoice = Invoice::findOrFail($id);
-        return view('invoice.print', compact('invoice'));
+        return view('Invoice.print', compact('invoice'));
     }
 }
