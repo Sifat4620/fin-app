@@ -42,6 +42,12 @@ class InvoiceController extends Controller
             'sign_3_name' => 'nullable|string',
         ]);
 
+        // Handle AJAX request
+        if ($request->ajax()) {
+            $invoice = Invoice::create($request->all());
+            return response()->json(['success' => true, 'invoice_id' => $invoice->id]);
+        }
+
         Invoice::create($request->all());
 
         return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
