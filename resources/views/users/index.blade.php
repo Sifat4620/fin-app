@@ -23,7 +23,9 @@
                 <div class="card shadow-sm">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">User List</h4>
-                        <a href="{{ route('users.create') }}" class="btn btn-primary">Add New User</a>
+                         @can('create users')
+                            <a href="{{ route('users.create') }}" class="btn btn-primary">Add New User</a>
+                         @endcan
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">

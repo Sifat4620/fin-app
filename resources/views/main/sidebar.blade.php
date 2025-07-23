@@ -18,7 +18,9 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('users.index') }}">All Users</a></li>
-                    <li><a href="{{ route('users.create') }}">Add New User</a></li>
+                    @can('create users')
+                        <li><a href="{{ route('users.create') }}">Add New User</a></li>
+                    @endcan
                 </ul>
             </li>
 
@@ -109,12 +111,14 @@
             </li> --}}
 
             <!-- Backup -->
-            <li>
-                <a href="{{ route('backup.index') }}">
-                    <i class="mdi mdi-database-backup"></i>
-                    <span class="nav-text">System Backup</span>
-                </a>
-            </li>
+            @can('manage backups')
+                <li>
+                    <a href="{{ route('backup.index') }}">
+                        <i class="mdi mdi-database-backup"></i>
+                        <span class="nav-text">System Backup</span>
+                    </a>
+                </li>
+            @endcan
 
         </ul>
     </div>

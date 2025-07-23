@@ -1,5 +1,7 @@
 @extends('main.master')
 
+@section('title', 'Dashboard')
+
 @section('content')
 <div class="content-body">
     <div class="container">
@@ -34,88 +36,89 @@
                 <div class="card bg-light">
                     <div class="card-body">
                         <h4>Total Clients <i class="pull-right ion-person text-primary f-s-30"></i></h4>
-                        <h6 class="m-t-20 f-s-16">1200 Registered</h6>
+                        <h6 class="m-t-20 f-s-16">{{ $counts['total_users'] }} Registered</h6>
                         <div class="progress m-t-0 h-7px">
-                            <div class="progress-bar bg-primary w-75pc"></div>
+                            <div class="progress-bar bg-primary w-100pc"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Active Orders -->
+            <!-- Total Transactions -->
             <div class="col-lg-3 col-md-6">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <h4>Active Orders <i class="pull-right ion-android-cart text-success f-s-30"></i></h4>
-                        <h6 class="m-t-20 f-s-16">320 Orders</h6>
+                        <h4>Total Transactions <i class="pull-right ion-cash text-success f-s-30"></i></h4>
+                        <h6 class="m-t-20 f-s-16">{{ $counts['total_transactions'] }} Records</h6>
                         <div class="progress m-t-0 h-7px">
-                            <div class="progress-bar bg-success w-50pc"></div>
+                            <div class="progress-bar bg-success w-100pc"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Pending Invoices -->
+            <!-- Total Wallet Balance -->
             <div class="col-lg-3 col-md-6">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <h4>Pending Invoices <i class="pull-right ion-document text-warning f-s-30"></i></h4>
-                        <h6 class="m-t-20 f-s-16">45 Invoices</h6>
+                        <h4>Total Balance <i class="pull-right ion-social-bitcoin text-warning f-s-30"></i></h4>
+                        <h6 class="m-t-20 f-s-16">{{ number_format($counts['total_balance']) }} BDT</h6>
                         <div class="progress m-t-0 h-7px">
-                            <div class="progress-bar bg-warning w-30pc"></div>
+                            <div class="progress-bar bg-warning w-100pc"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Support Tickets -->
+            <!-- Branches -->
             <div class="col-lg-3 col-md-6">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <h4>Support Tickets <i class="pull-right ion-help-buoy text-danger f-s-30"></i></h4>
-                        <h6 class="m-t-20 f-s-16">12 New</h6>
+                        <h4>Total Branches <i class="pull-right ion-network text-danger f-s-30"></i></h4>
+                        <h6 class="m-t-20 f-s-16">{{ $counts['total_branches'] }} Branches</h6>
                         <div class="progress m-t-0 h-7px">
-                            <div class="progress-bar bg-danger w-20pc"></div>
+                            <div class="progress-bar bg-danger w-100pc"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Notifications -->
+        <!-- Recent Transactions & Users -->
         <div class="row">
+            <!-- Recent Transactions -->
             <div class="col-lg-6">
                 <div class="card bg-white">
                     <div class="card-body">
-                        <h5>Latest Notifications</h5>
-                        <ul class="list-unstyled m-t-20">
-                            <li>📧 Invoice #1004 due in 3 days</li>
-                            <li>🆕 New Product Request from Client #452</li>
-                            <li>🔐 User #231 failed OTP verification</li>
-                            <li>📨 Support Ticket #3901 replied</li>
+                        <h5>Recent Transactions</h5>
+                        <ul class="list-group mt-3">
+                            @forelse ($recentTransactions as $txn)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    #{{ $txn->transaction_number }}
+                                    <span class="badge bg-info text-white">{{ number_format($txn->amount) }} BDT</span>
+                                </li>
+                            @empty
+                                <li class="list-group-item text-muted">No transactions available.</li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- System Stats -->
+            <!-- Recent Users -->
             <div class="col-lg-6">
                 <div class="card bg-white">
                     <div class="card-body">
-                        <h5>System Overview</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between">
-                                Registered Companies <span>980</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                Registered Individuals <span>220</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                Categories <span>35</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                Products <span>180</span>
-                            </li>
+                        <h5>New Registered Users</h5>
+                        <ul class="list-group mt-3">
+                            @forelse ($recentUsers as $user)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ $user->name }}
+                                    <small class="text-muted">{{ $user->created_at->format('d M, Y') }}</small>
+                                </li>
+                            @empty
+                                <li class="list-group-item text-muted">No new users found.</li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>

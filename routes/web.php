@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Branch\BranchController;
 use App\Http\Controllers\Payment\MyPaymentController;
 use App\Http\Controllers\Admin\PaymentApprovalController;
-
+use App\Http\Controllers\Dashboard\DashboardController;
 
 
 
@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
     // =====================
     // Dashboard
     // =====================
-    Route::get('/', fn () => view('dashboard'))->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // =====================
     // Profile Routes
