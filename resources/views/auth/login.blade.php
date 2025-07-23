@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <!-- Favicon icon -->
+    <title>Login | Financial Software</title>
+
+    <!-- Favicon -->
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Custom Stylesheet -->
+    <!-- Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script src="{{ asset('js/modernizr.3.6.0.min.js') }}"></script>
 </head>
@@ -29,24 +30,28 @@
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-xl-6 col-lg-8 col-md-10">
                     <div class="form-input-content">
-                        <div class="card">
+                        <div class="card shadow">
                             <div class="card-body">
-                                <!-- Logo Section -->
-                                <div class="logo text-center mt-4">
-                                    <h4>CRM - Customer Relationship Management System</h4>
+                                <!-- Logo / Title -->
+                                <div class="text-center mt-4">
+                                    <h3 class="font-weight-bold">💼 Financial Software</h3>
+                                    <p class="text-muted small">Powered by <strong>New Vision 19</strong></p>
                                 </div>
-                                
-                                <!-- Login Form Heading -->
-                                <h4 class="text-center mt-3">Log into Your Account</h4>
 
-                                <!-- Form Starts Here -->
-                                <form class="m-t-30 m-b-30" method="POST" action="{{ route('login') }}">
+                                <!-- Login Heading -->
+                                <h4 class="text-center mt-3 mb-4">🔐 Sign in to your account</h4>
+
+                                <!-- Login Form -->
+                                <form method="POST" action="{{ route('login') }}">
                                     @csrf
 
-                                    <!-- Email Address Input -->
+                                    <!-- Email -->
                                     <div class="form-group">
                                         <label for="email">Email Address</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus autocomplete="username">
+                                        <input type="email" id="email" name="email"
+                                               class="form-control @error('email') is-invalid @enderror"
+                                               placeholder="Enter your email" value="{{ old('email') }}"
+                                               required autofocus autocomplete="username">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -54,10 +59,12 @@
                                         @enderror
                                     </div>
 
-                                    <!-- Password Input -->
+                                    <!-- Password -->
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
+                                        <input type="password" id="password" name="password"
+                                               class="form-control @error('password') is-invalid @enderror"
+                                               placeholder="Enter your password" required>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -65,7 +72,7 @@
                                         @enderror
                                     </div>
 
-                                    <!-- Remember Me and Forgot Password -->
+                                    <!-- Remember / Forgot -->
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <div class="form-check">
@@ -75,21 +82,20 @@
                                         </div>
                                         <div class="form-group col-md-6 text-right">
                                             @if (Route::has('password.request'))
-                                                <a href="{{ route('password.request') }}" class="text-muted">Forgot Password?</a>
+                                                <a class="text-muted" href="{{ route('password.request') }}">Forgot Password?</a>
                                             @endif
                                         </div>
                                     </div>
 
-                                    <!-- Submit Button -->
-                                    <div class="text-center m-b-15 m-t-15">
+                                    <!-- Submit -->
+                                    <div class="text-center mt-4">
                                         <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                                     </div>
                                 </form>
-                                <!-- Form Ends Here -->
 
-                                <!-- Alternative Login Options (Social Media or Others) -->
-                                {{-- <div class="text-center">
-                                    <p class="m-t-30">Don't have an account? <a href="{{ route('register') }}">Register Now</a></p>
+                                <!-- Optional Footer -->
+                                {{-- <div class="text-center mt-3">
+                                    <p>Don't have an account? <a href="{{ route('register') }}">Register Now</a></p>
                                 </div> --}}
                             </div>
                         </div>
@@ -99,11 +105,8 @@
         </div>
     </div>
 
-    <!-- Common JS -->
+    <!-- JS -->
     <script src="{{ asset('assets/plugins/common/common.min.js') }}"></script>
-
-    <!-- Custom JS -->
     <script src="{{ asset('js/custom.mini.nav.js') }}"></script>
 </body>
-
 </html>
