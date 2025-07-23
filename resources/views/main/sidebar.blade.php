@@ -57,15 +57,26 @@
             @endcan
 
             <!-- Reports -->
-            <li class="has-arrow">
+            <li class="has-arrow {{ request()->is('reports/*') ? 'active' : '' }}">
                 <a href="#" aria-expanded="false">
                     <i class="mdi mdi-chart-bar-stacked"></i>
                     <span class="nav-text">Reports</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ route('reports.user.payments.yearly') }}">Yearly User Payments</a></li>
-                    <li><a href="{{ route('reports.user.payments.monthly') }}">Monthly Payment Summary</a></li>
-                    <li><a href="{{ route('reports.invoices') }}">Invoice Report</a></li>
+                <ul aria-expanded="false" class="{{ request()->is('reports/*') ? 'collapse in' : 'collapse' }}">
+                    <li class="{{ request()->routeIs('reports.user.payments.yearly') ? 'active' : '' }}">
+                        <a href="{{ route('reports.user.payments.yearly') }}">Yearly User Payments</a>
+                    </li>
+                    <li class="{{ request()->routeIs('reports.user.payments.monthly') ? 'active' : '' }}">
+                        <a href="{{ route('reports.user.payments.monthly') }}">Monthly Payment Summary</a>
+                    </li>
+
+                     <li class="{{ request()->routeIs('reports.graph') ? 'active' : '' }}">
+                        <a href="{{ route('reports.graph') }}">Graph Report</a>
+                    </li>
+
+                    {{-- <li class="{{ request()->routeIs('reports.invoices') ? 'active' : '' }}">
+                        <a href="{{ route('reports.invoices') }}">Invoice Report</a>
+                    </li> --}}
                 </ul>
             </li>
 

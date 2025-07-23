@@ -83,13 +83,14 @@ Route::middleware(['auth'])->group(function () {
     // =====================
     // Reports
     // =====================
-    Route::prefix('reports')->name('reports.')->group(function () {
-        Route::get('/sales', [ReportController::class, 'sales'])->name('sales');
+     Route::prefix('reports')->name('reports.')->group(function () {
         Route::get('/clients', [ReportController::class, 'clients'])->name('clients');
-        Route::get('/invoices', [ReportController::class, 'invoices'])->name('invoices');
         Route::get('/user-payments/yearly', [ReportController::class, 'yearlyUserPayments'])->name('user.payments.yearly');
         Route::get('/user-payments/monthly', [ReportController::class, 'monthlyUserPayments'])->name('user.payments.monthly');
+        Route::get('/invoices', [ReportController::class, 'invoices'])->name('invoices');
+        Route::get('/graph', [ReportController::class, 'graph'])->name('graph');
     });
+
 
     // =====================
     // Admin Panel
